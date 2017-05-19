@@ -1,6 +1,6 @@
 from twilio.rest import Client
 from config import ACCOUNT_SID, AUTH_TOKEN, TWILIO_NUMBER
-
+import re
 
 def validates_choice(user_choice):
     """Returns bool of user's choice"""
@@ -15,8 +15,12 @@ def gets_to_number():
     """Ask user for phone number, returns it with +1 added"""
     number = raw_input("What is your number? ")
     number = "+1" + number
-    return number
-
+    
+    number_test = re.search(r'\D', number)
+    if number_test:
+        number_re = re.sub(r'\D', "", number)
+        return number_re
+    
 def gets_message_to_send():
     """Ask user for message to send"""
 
